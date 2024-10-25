@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management</title>
+    <style>
+        /* CSS for better UI */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+        }
+        h2 {
+            margin-left: 30%;
+       margin-right: 30%;
+           padding: 10px;
+            text-align: center;
+        background-color: #0056b3;
+        color: aliceblue;
+        border-radius: 5px;
+        font-family:cursive;
+      
+       
+       
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        label {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        input[type="radio"] {
+            display: none;
+        }
+        input[type="radio"] + label {
+            color: #666;
+            background-color: #ddd;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        input[type="radio"]:checked + label {
+            background-color: #007bff;
+            color: #fff;
+        }
+        button[type="submit"] {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Attendance Management</h2>
+    <form id="attendanceForm" action="/addattendance" method="post">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Mark Attendance</th>
+                        <th>
+                        <label for="subject" >Subject:</label>
+                        <select name="subject" id="subject">
+                            <option value="Maths">Maths</option>
+                            <option value="Physics">Physics</option>
+                            <option value="chemistry">chemistry</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                        
+                    </th>
+                    <th>Date: <input type="date" name="date"></th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr th:each="student, status : ${students}">
+        <td th:text="${student.name}"></td>
+        <td>
+            <input type="radio" th:id="'present_' + ${status.index}" th:name="'attendance_' + ${status.index}" value="present">
+            <label th:for="'present_' + ${status.index}">Present</label>
+            <input type="radio" th:id="'absent_' + ${status.index}" th:name="'attendance_' + ${status.index}" value="absent">
+            <label th:for="'absent_' + ${status.index}">Absent</label>
+        </td>
+    </tr>
+</tbody>
+        </table>
+        <button type="submit">Submit Attendance</button>
+    </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Attach a submit event handler to the form
+    $('#attendanceForm').submit(function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        
+        // Make an AJAX POST request to submit the attendance data
+        $.post("/addattendance", $(this).serialize(), function(data, status) {
+            // Display a styled popup message with the response message below the title
+            var popup = $('<div></div>').html(data);
+            popup.css({
+                'background-color': '#fa7407',
+                'color': '#fff',
+                'padding': '20px',
+                'border-radius': '10px',
+                'box-shadow': '0 0 20px rgba(0, 0, 0, 0.3)',
+                'position': 'absolute',
+                'top': $('h2').offset().top + $('h2').outerHeight() + 40, // Below the title with 40px margin
+                'left': '50%',
+                'transform': 'translateX(-50%)',
+                'z-index': '9999',
+                'font-size': '18px',
+                'font-weight': 'bold'
+            });
+            $('body').append(popup);
+            // Automatically close the popup after 3 seconds
+            setTimeout(function() {
+                popup.fadeOut('slow', function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
