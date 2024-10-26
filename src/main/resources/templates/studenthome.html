@@ -18,7 +18,7 @@
             padding-top: 20px;
         }
         #cl {
-            margin-left: 30px;
+            margin-left: 15px;
             border-radius: 10px;
         }
         .list-group-item {
@@ -30,7 +30,7 @@
         }
         .list-group-item:active,
         .list-group-item:focus {
-            background-color: #007bff;;
+            background-color: #007bff;
         }
         .list-group-item:focus:hover {
             background-color: #0594f3;
@@ -44,7 +44,7 @@
             margin: 20px;
         }
         .tab-content {
-            padding-right: 30px;
+            padding-right: 15px;
             background-color: #ff0a0a;
             border: 1px solid #0564c4;
             border-radius: 5px;
@@ -53,7 +53,7 @@
             border: none;
             width: 100%;
             height: calc(100vh - 100px);
-            margin-right: 100px;
+            margin-right: 0;
         }
         .tab-pane {
             margin-top: 20px;
@@ -66,40 +66,45 @@
             color: #fcfcfc;
             border-radius: 5px;
             font-family: cursive;
-            margin-left: 60px;
-            margin-right: 60px;
-            font-size: 50px;
+            font-size: 30px;
+            margin: 10px;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #cl {
+                margin: 0;
+            }
+            h1, h2 {
+                font-size: 24px;
+                margin: 10px;
+            }
+            .list-group-item {
+                font-size: 14px;
+                padding: 10px;
+            }
         }
     </style>
 </head>
 <body>
 <div th:if="${student}">
-    <h1>Welcome to Student Dashboard </h1>
+    <h1>Welcome to Student Dashboard</h1>
     <h2>Hello, <span th:text="${student.getName}"></span></h2>
 </div>
 
-<div class="row">
-    <div class="col-lg-3" id="cl"> <!-- Allocate 30% width -->
-        <div class="cls">
-            
-            <a class="list-group-item list-group-item-action" target="if" href="/studentprofile">Profile</a>
-            <a class="list-group-item list-group-item-action" target="if" href="/getmarks">Marks</a>
-            <a class="list-group-item list-group-item-action" target="if" href="/getattendance"> Attendance</a>
-            <a class="list-group-item list-group-item-action" target="if" href="lectureTitles"> Lectures</a>
-            <a class="list-group-item list-group-item-action" target="if" href="/getassessments">Assessments</a>
-            <a class="list-group-item list-group-item-action" href="/logout">Logout</a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-sm-12" id="cl">
+            <div class="cls">
+                <a class="list-group-item list-group-item-action" target="if" href="/studentprofile">Profile</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/getmarks">Marks</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/getattendance">Attendance</a>
+                <a class="list-group-item list-group-item-action" target="if" href="lectureTitles">Lectures</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/getassessments">Assessments</a>
+                <a class="list-group-item list-group-item-action" href="/logout">Logout</a>
+            </div>
         </div>
-        <script>
-            window.addEventListener('pageshow', function(event) {
-                if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-                    window.location.href = '/studentlogin';
-                }
-            });
-        </script>
-    </div>
-    <div class="col-lg-8"> <!-- Allocate 70% width -->
-        <div>
-            <iframe name="if"> </iframe>
+        <div class="col-md-9 col-sm-12">
+            <iframe name="if"></iframe>
         </div>
     </div>
 </div>

@@ -1,8 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,53 +12,42 @@
 
     <style>
         /* Custom styles */
-       
-       body {
-        background-image: url('/images/sms1.jpg');
-        background-size: cover;
-        font-family: Arial, sans-serif;
-    
+        body {
+            background-image: url('/images/sms1.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
         }
         .container {
             padding-top: 20px;
         }
-      
-       
         #cl {
-            margin-left: 30px;
+            margin-left: 15px;
             border-radius: 10px;
         }
         .list-group-item {
             cursor: pointer;
             color: rgb(11, 1, 1);
-            
         }
         .list-group-item:hover {
             background-color: #237fd5;
         }
-       
-       
         .list-group-item:active,
-        .list-group-item:focus{
-            background-color:  #007bff;;
-          
+        .list-group-item:focus {
+            background-color: #007bff;
         }
         .list-group-item:focus:hover {
             background-color: #0594f3;
         }
-        h1
-    {
-        text-align: center;
-         background-color:  #1a63a7;
-        color: aliceblue;
-        border-radius: 5px;
-        font-family:cursive;
-       margin: 20px;
-    }
-       
-      
+        h1 {
+            text-align: center;
+            background-color: #1a63a7;
+            color: aliceblue;
+            border-radius: 5px;
+            font-family: cursive;
+            margin: 20px;
+        }
         .tab-content {
-            padding-right: 30px;
+            padding: 15px;
             background-color: #ff0a0a;
             border: 1px solid #0564c4;
             border-radius: 5px;
@@ -66,73 +55,78 @@
         iframe {
             border: none;
             width: 100%;
-            height: calc(100vh - 100px); /* Adjust height as needed */
-            
-            margin-right: 100px;
+            height: calc(100vh - 150px); /* Adjust height for mobile responsiveness */
         }
         .tab-pane {
             margin-top: 20px;
         }
-        .cls
-        {
+        .cls {
             border-radius: 10px;
         }
-         h2
-    {
-        text-align: center;
-        
-        color: #fcfcfc;
-        border-radius: 5px;
-        font-family:cursive;
-       margin-left: 60px;
-       margin-right: 60px;
-       font-size: 50px;
-    }
-      
+        h2 {
+            text-align: center;
+            color: #fcfcfc;
+            border-radius: 5px;
+            font-family: cursive;
+            margin: 15px;
+            font-size: 24px;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #cl {
+                margin: 0;
+            }
+            h1 {
+                font-size: 24px;
+                margin: 10px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            iframe {
+                height: calc(100vh - 200px);
+            }
+        }
     </style>
 </head>
-<body> 
+<body>
 <div th:if="${teacher}">
-    <h1>Welcome to Teachers's Dashboard </h1>
-    <h2>hii..<span th:text="${teacher.getName}"></span></h2>
-    </div>
-   
-    <div class="row ">
-        <div class="col-lg-3" id="cl"> <!-- Allocate 30% width -->
-            <div class="cls">
-               
-                <a class="list-group-item list-group-item-action " target="if"  href="/tprofile" >Profile</a>
-                <a class="list-group-item list-group-item-action" target="if"  href="/markattendence">Mark Attendance</a>
-                <a class="list-group-item list-group-item-action"  target="if" href="/uploadlecture" >Upload Lectures</a>
-                <a target="if" class="list-group-item list-group-item-action" href="/uploadmarks" >Upload Marks</a>
-                <a target="if" class="list-group-item list-group-item-action" href="/addassessment" >Upload Assesment</a>
-                <a target="if" class="list-group-item list-group-item-action" href="/studentdetails" >Student Details</a>
-                <a  class="list-group-item list-group-item-action" href="/logout" >Logout</a>
-            </div>
-             <script>
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-                window.location.href = '/teacherlogin';
-            }
-        });
-    </script>
-        </div>
-        <div class="col-lg-8"> <!-- Allocate 70% width -->
-            <div>
-                <iframe id="uploadIframe" name="if"> </iframe>
-            </div>
-        </div>
-    </div>
-    <script>
-        // Function to load uploadvideo.html into the iframe
-        function loadUploadVideoPage() {
-            document.getElementById('uploadIframe').src = 'uploadvideo.html';
-        }
-    </script>
+    <h1>Welcome to Teacher's Dashboard</h1>
+    <h2>Hi, <span th:text="${teacher.getName}"></span></h2>
+</div>
 
-    <!-- Bootstrap JS and jQuery (for Bootstrap functionality) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 col-sm-4 col-12 mb-3" id="cl">
+            <div class="cls list-group">
+                <a class="list-group-item list-group-item-action" target="if" href="/tprofile">Profile</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/markattendence">Mark Attendance</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/uploadlecture">Upload Lectures</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/uploadmarks">Upload Marks</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/addassessment">Upload Assessment</a>
+                <a class="list-group-item list-group-item-action" target="if" href="/studentdetails">Student Details</a>
+                <a class="list-group-item list-group-item-action" href="/logout">Logout</a>
+            </div>
+        </div>
+        <div class="col-md-9 col-sm-8 col-12">
+            <div>
+                <iframe id="uploadIframe" name="if"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
+            window.location.href = '/teacherlogin';
+        }
+    });
+</script>
+
+<!-- Bootstrap JS and jQuery (for Bootstrap functionality) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
