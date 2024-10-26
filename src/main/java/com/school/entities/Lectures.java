@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Lectures {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	@Column(length = 500)
 	String title;
